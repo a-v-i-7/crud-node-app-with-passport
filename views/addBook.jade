@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  div
+    form(method="get")
+      label(for="bookId") Book Id: 
+      input(type="text", name="bookId", id="bookId")
+      label(for="bookName") Book Name
+      input(type="text",name="bookName", id="bookName")
+      label(for="authorName") Author Name: 
+      input(type="text", name="authorName", id="authorName")
+      button(type="submit") Submit
