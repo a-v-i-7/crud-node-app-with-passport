@@ -5,6 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+
+
+require('./connection/mongoose');
+
 var usersRouter = require('./routes/users');
 var bookRouter = require('./routes/book');
 const loginRouter = require('./routes/login');
@@ -29,6 +33,7 @@ app.use('/auth', loginRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
