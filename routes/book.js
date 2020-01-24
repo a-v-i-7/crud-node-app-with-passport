@@ -24,4 +24,12 @@ router.delete('/remove/:bookId', bookController.deleteBook)
 
 router.patch('/update/:bookId', bookController.updateBook)
 
+router.get('/time', (req, res) => {
+  res.status(200).json({time: (new Date()).toLocaleString()})
+});
+
+router.get('*', (req, res) => {
+  res.status(404).json({error:'Page not Found'});
+})
+
 module.exports = router;

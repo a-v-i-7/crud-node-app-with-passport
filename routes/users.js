@@ -1,9 +1,17 @@
 var express = require('express');
 var router = express.Router();
+const passport = require('passport');
+const userController = require('../controller/userController.js');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.status(200).json({data: 'hey this is aviash'});
-});
+router.post('/add', userController.createUser);
+
+router.get('/list',userController.listUser
+);
+
+router.get('/read',  passport.authenticate('jwt', {session: false}),
+userController.readUser);
+
+router.get('/token', userController.generateToken);
 
 module.exports = router;
