@@ -11,8 +11,10 @@ const passport = require('passport');
 //   userController.validateUser(req, res);
 //   }
 // });
-
-router.get('/', )
+router
+router.get('/', function(req, res, next) {
+  res.render('login', {title: 'Welcome to login page'});
+})
 router.post('/', passport.authenticate('local'), userController.loginUser);
 
 module.exports = router;

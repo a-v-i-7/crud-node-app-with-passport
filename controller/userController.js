@@ -62,7 +62,7 @@ module.exports.validateUser = (req, res) => {
 
 module.exports.generateToken = (req, res) => {
   const token = jwt.sign(
-    { id: "5e295475f70b71184b85b7b0" },
+    { id: req.body.id },
     process.env.JWT_SECRET
   );
   res.status(HttpStatus.OK).json({ token });
@@ -70,5 +70,6 @@ module.exports.generateToken = (req, res) => {
 
 module.exports.loginUser = (req, res) => {
   const token = jwt.sign({id: req.user._id}, process.env.JWT_SECRET);
-  res.status(200).json({token: token});
+  // res.status(200).json({token: token});
+  res.render('welcome');
 }

@@ -12,6 +12,10 @@ const passport = require('passport');
 require('./connection/mongoose');
 require('./passport/strategy/index');
 require("./passport/local/strategy");
+
+var usersRouter = require('./routes/users');
+var bookRouter = require('./routes/book');
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -20,11 +24,6 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-
-
-var usersRouter = require('./routes/users');
-var bookRouter = require('./routes/book');
-const loginRouter = require('./routes/login');
 var app = express();
 
 // view engine setup
@@ -42,7 +41,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/book', bookRouter);
-app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
