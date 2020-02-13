@@ -33,14 +33,17 @@ const { USER } = require("../../schema/index");
 
 passport.use(
   new LocalStrategy(options, async (username, password, done) => {
+    console.log(username, password);
     await USER.findOne({ username })
       .then(user => {
         if (user) {
+          console.log(user);
           /**
            * Comparing the password using bcrypt.compare()
            */
           bcrypt.compare(password, user.password, function(err, isMatch) {
             if (err) done(err);
+            console.log(isMatch);
             if (isMatch) {
               console.log(done(null,user)); 
               return done(null, user);}

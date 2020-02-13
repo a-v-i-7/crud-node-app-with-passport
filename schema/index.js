@@ -3,22 +3,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
-  bookname: String,
   author: String,
   pages: String,
   stock: Number,
-  rating: String
+  rating: String,
+  bookName: {
+    type: String, 
+    required: true
+  }
 });
 
 module.exports.bookSchema = bookSchema;
 
 const Book = mongoose.model("Book", bookSchema);
-
 module.exports.Book = Book;
 
 const userSchema = new Schema({
-  _id: Schema.Types.ObjectId,
-  username: {
+username: {
     type: String,
     required: true,
   },

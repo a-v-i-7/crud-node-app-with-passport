@@ -9,9 +9,11 @@ router.post('/add', userController.createUser);
 router.get('/list',userController.listUser
 );
 
-router.get('/read',  passport.authenticate('jwt', {session: false}),
+router.get('/read',
 userController.readUser);
 
 router.get('/token', userController.generateToken);
+
+router.post('/update/:id', userController.updateUser);
 
 module.exports = router;

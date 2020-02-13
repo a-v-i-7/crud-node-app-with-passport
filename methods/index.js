@@ -1,7 +1,6 @@
 const { bookSchema } = require("../schema/index");
 
 bookSchema.methods.getIfGoodBook = function() {
-  console.log(this);
   return Number(this.rating) > 5
 };
 

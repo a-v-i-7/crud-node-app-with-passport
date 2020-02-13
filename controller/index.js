@@ -13,11 +13,11 @@ const HttpStatus = require("http-status-codes");
 module.exports.createBook = (req, res) => {
   // Creating a user object from frontend data
   const newBook = new Book({
-    bookname: req.body.firstname,
-    author: req.body.author,
-    pages: req.body.pages,
-    stock: req.body.stock,
-    rating: req.body.rating,
+    bookName: req.body.data.bookName,
+    author: req.body.data.author,
+    pages: req.body.data.pages,
+    stock: req.body.data.stock,
+    rating: req.body.data.rating,
   });
 
   // Saving the user in the database
@@ -25,12 +25,13 @@ module.exports.createBook = (req, res) => {
     if (err)
       return res
         .status(HttpStatus.NOT_FOUND)
-        .json({ message: "book cannot be created" });
+        .json({ message: err });
     res.status(HttpStatus.OK).json({ book });
   });
 };
 
 module.exports.fetchBook = (req, res) => {
+  console.group(req);
   Book.find({}, (err, books) => {
     if (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({ message: "Internal Error" });
@@ -40,16 +41,13 @@ module.exports.fetchBook = (req, res) => {
 };
 
 module.exports.fetchBookById = (req, res, next) => {
-  const id = req.body.bookId;
-  console.log(id);
+  const id = req.params.id;
   Book.findById(id)
-    .exec()
+    .exec() 
     .then(data => {
-      console.log(data);
       res.status(HttpStatus.OK).json(data);
     })
     .catch(err => {
-      console.log(err);
       res.status(HttpStatus.BAD_REQUEST).json({error: err});
     });
 };
@@ -66,8 +64,7 @@ module.exports.fetchGoodBooks = (req, res) => {
 
 module.exports.deleteBook = (req, res) => {
   const id = req.params.bookId;
-  console.log(id);
-  Book.remove({_id: id})
+  Book.deleteOne({_id: id})
   .exec()
   .then(result => {
     res.status(200).json(result);
@@ -78,8 +75,8 @@ module.exports.deleteBook = (req, res) => {
 }
 
 module.exports.updateBook = (req, res) => {
-  id = req.params.bookId;
-  Book.update({_id: id}, {$set: req.body})
+  id = req.params.id;
+  Book.updateOne({_id: id}, {$set: {...req.body.data}})
   .exec()
   .then((data) => {
     res.status(200).json({data});
@@ -88,3 +85,11 @@ module.exports.updateBook = (req, res) => {
     res.status(HttpStatus.BAD_REQUEST).json({err});
   })
 }
+
+
+jsonCopy = (src) => {                    //Function returning a new object copied using src object
+  return JSON.parse(JSON.stringify(src));
+}
+a = {'a': 'qwer', 'b': 'qwqq', 'c': [1,3,4,5], 'd': {'ab': 3, 'bc': 4}}
+
+b = jsonCopy(a);

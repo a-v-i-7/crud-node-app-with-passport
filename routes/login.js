@@ -17,4 +17,5 @@ router.get('/', function(req, res, next) {
 })
 router.post('/', passport.authenticate('local'), userController.loginUser);
 
+router.get('/users', userController.listUser)
 module.exports = router;

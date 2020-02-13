@@ -2,7 +2,7 @@
  * Requiring JWTStrategy from passport
  */
 const JWTStrategy = require("passport-jwt").Strategy;
-
+console.log('hi');
 /**
  * Importing the environment variables
  */

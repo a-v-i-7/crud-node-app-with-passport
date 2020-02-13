@@ -70,6 +70,14 @@ module.exports.generateToken = (req, res) => {
 
 module.exports.loginUser = (req, res) => {
   const token = jwt.sign({id: req.user._id}, process.env.JWT_SECRET);
-  // res.status(200).json({token: token});
-  res.render('welcome');
+  res.status(200).json({token: token});
+  // res.render('welcome');
+}
+
+module.exports.updateUser = (req, res) => {
+  const id = req.params.id;
+  USER.updateOne({_id:id}, {$set: {...req.body.data}})
+    .exec()
+    .then((data) => res.status(200).json(data))
+    .catch((err) => console.log(err));
 }
