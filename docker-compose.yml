@@ -3,6 +3,7 @@ version: '3'
 services: 
   backend-service:
     build: .
+    restart: 'unless-stopped'
     volumes: 
       - .:/usr/src/app
     ports:
