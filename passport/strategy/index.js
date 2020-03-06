@@ -2,7 +2,6 @@
  * Requiring JWTStrategy from passport
  */
 const JWTStrategy = require("passport-jwt").Strategy;
-console.log('hi');
 /**
  * Importing the environment variables
  */
@@ -32,7 +31,6 @@ const { USER } = require("../../schema/index");
  */
 passport.use(
   new JWTStrategy(options, async function (jwtPayload, done) {
-    console.log(jwtPayload);
     await USER.findById({ _id: jwtPayload.id })
       .then(user => {
         if (user) {

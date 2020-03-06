@@ -33,24 +33,27 @@ const { USER } = require("../../schema/index");
 
 passport.use(
   new LocalStrategy(options, async (username, password, done) => {
-    console.log(username, password);
+    console.log('1');
     await USER.findOne({ username })
-      .then(user => {
+      .then(
+        (user) => {
         if (user) {
-          console.log(user);
           /**
            * Comparing the password using bcrypt.compare()
            */
           bcrypt.compare(password, user.password, function(err, isMatch) {
             if (err) done(err);
-            console.log(isMatch);
             if (isMatch) {
               console.log(done(null,user)); 
               return done(null, user);}
-            return done(null, false);
-          });
+            return done(null, false, {message: 'Incorrect password'});
+            }
+          );
+        }
+        else {
+          return done(null, false, {message: 'No user with this name is found'})
         }
       })
-      .catch(err => done(err));
+      .catch(err => console.log(err));
   })
 );

@@ -4,7 +4,6 @@ const bookController = require('../controller/index')
 const passport = require('passport');
 
 router.get('/search/:id', function (req, res, next) {
-  console.log(req.params.id)
 res.status(200).json({'id': '1', 'author': 'J. K. Rowling', 'book': 'Harry Potter'});
 
 });
